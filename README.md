@@ -1,4 +1,4 @@
-Welcome to the CBTCIP (CipherByte Technologies Internship Projects) repository! This repository contains all the projects developed during the internship at CipherByte Technologies. Each project is organized in its respective folder, named according to the project name.
+Welcome to the CBTCIP repository! This repository contains all the projects developed during the internship at CipherByte Technologies. Each project is organized in its respective folder, named according to the project name.
 
 Repository Structure
 WeatherVue/
