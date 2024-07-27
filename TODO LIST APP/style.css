@@ -1,0 +1,260 @@
+@import url("https://fonts.googleapis.com/css2?family=Handlee&family=Raleway:wght@700&display=swap");
+
+* {
+  font-family: "Handlee", cursive;
+}
+
+li {
+  list-style-type: none;
+}
+
+.app-name {
+  font-size: 35px;
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.829);
+  user-select: none;
+  letter-spacing: 3px;
+  font-family: "Raleway", sans-serif;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.app-name:hover {
+  color: #004080; /* Navy blue color */
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./bg.jpg);
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.32); /* Adjust the opacity as needed */
+  z-index: 1;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.3);
+  min-height: 600px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.input-items {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  background: rgb(236, 238, 239);
+  height: 50px;
+}
+
+.input-items input {
+  width: 84%;
+  height: 50px;
+  border-radius: 13px;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0 10px 0 15px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+.input-items i {
+  width: 40px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: white;
+  margin-right: 7px;
+  border-radius: 50%;
+  margin-top: 6.5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.input-items i:hover {
+  background: #31cc32;
+  color: black;
+  transform: scale(1.1);
+}
+
+li {
+  height: 45px;
+  width: 85%;
+  background: rgb(236, 238, 239);
+  margin-top: 20px;
+  align-content: center;
+  padding: 0 15px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.warning {
+  display: flex;
+  justify-content: center;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  user-select: none;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.warning.hide {
+  display: none;
+}
+
+#del:hover {
+  color: red;
+}
+
+input::placeholder {
+  user-select: none;
+}
+
+#del-all {
+  color: white;
+  margin-left: 5px;
+}
+
+#del-all:hover {
+  background: red;
+}
+
+.timing {
+  font-size: 12px;
+  text-align: center;
+  font-family: "Poppins";
+  opacity: 40%;
+}
+
+.task {
+  height: fit-content;
+  max-width: 90%;
+}
+
+.task-element {
+  margin-left: 5%;
+  word-wrap: break-word;
+  text-align: justify;
+  width: 50%;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 10%;
+    background-repeat: cover;
+    background-size: cover;
+  }
+
+  .app-name {
+    font-size: 24px;
+  }
+
+  .container {
+    width: 90vw;
+    min-height: fit-content;
+    margin-bottom: 100%;
+    padding-bottom: 10%;
+  }
+
+  .input-items input {
+    height: 50px;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .input-items {
+    width: 90%;
+  }
+
+  .input-items i {
+    height: 30px;
+    width: 36px;
+    margin-top: 3%;
+  }
+
+  li {
+    height: 40px;
+    margin-top: 15px;
+    margin-left: -15px;
+    width: 100%;
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
+
+  .task-element {
+    font-size: 12px;
+  }
+
+  .warning {
+    font-size: 14px;
+  }
+}
+
+.task-element.dec {
+  text-decoration: line-through;
+  opacity: 50%;
+  color: #000000fe;
+  margin-left: 5%;
+  font-weight: bolder;
+}
+
+.check-icon {
+  cursor: pointer;
+  user-select: none;
+}
+
+li.task {
+  background: white;
+}
+
+.task-element {
+  letter-spacing: 1px;
+}
+
+
+

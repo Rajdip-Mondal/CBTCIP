@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet" />
+
+  <title>Plan Your</title>
+</head>
+
+<body>
+  <div class="container">
+    <h3 class="app-name">&#128203; TO-DO LIST</h3>
+
+    <div class="input-items">
+      <input id="input" placeholder="Write task here" type="text" />
+      <i class="fa-solid fa-plus" onclick="addItem()"></i>
+      <i class="fa-solid fa-trash" onclick="deleteAll()" id="del-all"></i>
+    </div>
+
+    <div class="task-list">
+      <ul id="list"></ul>
+    </div>
+    <p id="warning" class="warning hide">Write Something to add</p>
+  </div>
+  <script>
+    document.addEventListener("contextmenu", function (event) {
+      event.preventDefault();
+    });
+
+    let deleteIcon = `<i class="fa-solid fa-trash" onclick="removeItem(event)" id="del"></i>`;
+
+    let input = document.getElementById("input");
+    let list = document.getElementById("list");
+    let warningMsg = document.getElementById("warning");
+    let tick = "◯";
+    window.onload = function () {
+      input.focus();
+    };
+
+    input.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        addItem();
+      }
+    });
+
+    function time() {
+      let currentDate = new Date();
+
+      // Function to add leading zero if necessary
+      function formatNumber(number) {
+        return number < 10 ? "0" + number : number;
+      }
+
+      let day = formatNumber(currentDate.getDate());
+      let month = formatNumber(currentDate.getMonth() + 1);
+      let year = currentDate.getFullYear().toString().slice(-2);
+      let hour = formatNumber(currentDate.getHours());
+      let minutes = formatNumber(currentDate.getMinutes());
+
+      let fullDate = `Added On ${day}/${month}/${year} <br>`;
+      let fullTime = `at ${hour}:${minutes}`;
+
+      return `<p class="timing"> ${fullDate}${fullTime} </p>`;
+    }
+
+    function completionTime() {
+      let currentDate = new Date();
+
+      // Function to add leading zero if necessary
+      function formatNumber(number) {
+        return number < 10 ? "0" + number : number;
+      }
+
+      let day = formatNumber(currentDate.getDate());
+      let month = formatNumber(currentDate.getMonth() + 1);
+      let year = currentDate.getFullYear().toString().slice(-2);
+      let hour = formatNumber(currentDate.getHours());
+      let minutes = formatNumber(currentDate.getMinutes());
+
+      let fullDate = `Done:<br>${day}/${month}/${year} <br>`;
+      let fullTime = `at ${hour}:${minutes}`;
+
+      return `<p class="timing"> ${fullDate}${fullTime} </p>`;
+    }
+
+    function complete() {
+      console.log(event.target.innerHTML);
+
+      if (event.target.innerHTML == "◯") {
+        event.target.innerHTML = "✔";
+
+        const time = event.target.parentElement.childNodes[3];
+        time.innerHTML = completionTime();
+      } else {
+        event.target.innerHTML = "◯";
+        const time = event.target.parentElement.childNodes[3];
+
+        let currenTimeValue = new Date();
+
+        // Function to add leading zero if necessary
+        function formatNumber(number) {
+          return number < 10 ? "0" + number : number;
+        }
+
+        // Formatting the date and time
+        let formattedDate =
+          formatNumber(currenTimeValue.getDate()) +
+          "/" +
+          formatNumber(currenTimeValue.getMonth() + 1) +
+          "/" +
+          currenTimeValue.getFullYear().toString().slice(-2);
+
+        let formattedTime =
+          formatNumber(currenTimeValue.getHours()) +
+          ":" +
+          formatNumber(currenTimeValue.getMinutes());
+
+        time.innerHTML =
+          "Added on " + formattedDate + "<br>at " + formattedTime;
+      }
+
+      let task = document.getElementById("task-element");
+
+      const childNodes = event.target.parentElement.childNodes;
+
+      const selectedItem = childNodes[1];
+      const childNode = event.target.parentElement.childNodes[1];
+      if (childNode.nodeType === Node.ELEMENT_NODE) {
+        childNode.classList.toggle("dec");
+      }
+
+      saveData();
+    }
+    function addItem() {
+      if (input.value != "") {
+        let child = document.createElement("li");
+        child.classList.add("task");
+
+        child.onclick = complete;
+        child.innerHTML =
+          `<h3 class='check-icon' onClick="complete()">${tick}</h3>` +
+          `<p class='task-element'> ${input.value}</p> </i>`;
+
+        child.innerHTML += time();
+        child.innerHTML += deleteIcon;
+        list.appendChild(child);
+        input.value = "";
+        saveData();
+      } else {
+        warningMsg.innerHTML = "⚠ Write Something to add";
+        warningMsg.classList.remove("hide");
+        setTimeout(() => {
+          warningMsg.classList.add("hide");
+        }, 1500);
+      }
+      location.reload();
+    }
+
+    function removeItem(event) {
+
+      if (confirm("Do you really want to remove this task?") == true) {
+        event.target.closest("li").remove();
+        saveData();
+      }
+    }
+
+    function deleteAll() {
+      if (list.hasChildNodes()) {
+        if (confirm("Do you want to delete all the tasks?") === true) {
+          while (list.hasChildNodes()) {
+            list.removeChild(list.firstChild);
+          }
+          saveData();
+        }
+      } else {
+        warningMsg.innerHTML = "⚠ You have nothing to delete";
+        warningMsg.classList.remove("hide");
+        setTimeout(() => {
+          warningMsg.classList.add("hide");
+        }, 1500);
+      }
+    }
+
+    function saveData() {
+      let tasks = [];
+      list.querySelectorAll("li").forEach((item) => {
+        tasks.push(item.innerHTML);
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function fetchData() {
+      let tasks = JSON.parse(localStorage.getItem("tasks"));
+      if (tasks) {
+        tasks.forEach((task) => {
+          let child = document.createElement("li");
+          child.classList.add("task");
+          child.innerHTML = task;
+          list.appendChild(child);
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchData);
+  </script>
+</body>
+
+</html>
